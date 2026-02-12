@@ -23,7 +23,14 @@
     cursor: pointer;
 }
 
+.sidebar-option.active{
+    background-color: rgba(250, 177, 201, 0.938);
+    border-color: rgb(228, 223, 225);
+}
+
+
 @media (max-width: 900px) {
     .sidebar-option p{
+        display: none;
     }
 }    
