@@ -28,3 +28,19 @@ hr{
   flex-direction: column;
   gap: 10px;
 }
+.cursor{
+  cursor: pointer; 
+    width: 40px;
+    padding: 10px;
+    border: none;
+    background-color: rgb(218, 79, 125);
+    color: white;
+    font-size: 8px;
+    font-weight: bold;
+    border-radius: 3px;
+    border-color: black;
+}
+.cursor:hover{
+  background-color: rgba(8, 8, 8, 0.8);
+  color: white;
+}

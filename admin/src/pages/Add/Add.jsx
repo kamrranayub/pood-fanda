@@ -1,30 +1,79 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Add.css'
 import { assets } from '../../assets/assets'
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
-const Add = () => {
+const Add = ({url}) => {
+
+    const [image, setImage] = useState(false);
+    const [data, setData] = useState({
+        name: "",
+        description: "",
+        category: "Salad",
+        price: ""
+    });
+
+    const onChangeHandler = (event) => {
+        const name = event.target.name;
+        const value = event.target.type === "file" ? event.target.files[0] : event.target.value;
+        setData((Data) => ({
+          ...Data,
+          [name]: value,
+        }));
+    }
+
+    const onSubmitHandler = async (event) => {
+        event.preventDefault();
+        const formData = new FormData();
+        formData.append("name", data.name);
+        formData.append("description", data.description);
+        formData.append("category", data.category);
+        formData.append("price", Number(data.price));
+        formData.append("image", image);
+        
+        try {
+            const response = await axios.post(`${url}/api/food/add`, formData);
+            console.log("Response:", response.data);
+
+            if (response.data.success){
+                alert("Food Added Successfully!");
+                setData({
+                    name: "",
+                    description: "",
+                    category: "Salad",
+                    price: ""
+                });
+                setImage(false);
+                toast.success(response.data.message);
+            }
+        } catch (error) {
+            toast.error(response.data.message);
+        }
+    }
+
   return (
     <div className='add'>
-        <form className='flex-col'>
+        <form className='flex-col' onSubmit={onSubmitHandler}>
             <div className="add-image-upload flex-col">
                 <p>Upload Image</p>
                 <label htmlFor="image">
-                    <img src={assets.upload_area} alt="" />
+                    <img src={image?URL.createObjectURL(image):assets.upload_area} alt="" />
                 </label>
-                <input type="file" id="image" hidden required/>
+                <input onChange={(e) => setImage(e.target.files[0])} type="file" id="image" hidden required/>
             </div>
             <div className="add-product-name flex-col">
                 <p>Product Name</p>
-                <input type="text" name='name' placeholder='Product Name' />
+                <input onChange={onChangeHandler} value={data.name} type="text" name='name' placeholder='Product Name' />
             </div>
             <div className="add-product-description flex-col">
                 <p>Product Description</p>
-                <textarea name='description' rows="6" placeholder='Product Description' />
+                <textarea onChange={onChangeHandler} name='description' rows="6" placeholder='Product Description' />
             </div>
             <div className="add-category-price">
                 <div className="add-category flex-col">
                     <p>Product Category</p>
-                    <select name="category">
+                    <select onChange={onChangeHandler}  name="category">
                         <option value="Salads">Salads</option>
                         <option value="Rolls">Rolls</option>
                         <option value="Desert">Desert</option>
@@ -37,7 +86,7 @@ const Add = () => {
                 </div>
                 <div className="add-price flex-col">
                     <p>Product Price</p>
-                    <input type="Number" name='price' placeholder='Product Price' />
+                    <input onChange={onChangeHandler} value={data.price} type="Number" name='price' placeholder='Product Price' />
                 </div>
             </div>
             <button type='submit' className='add-btn'>ADD</button>
