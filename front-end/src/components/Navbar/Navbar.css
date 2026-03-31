@@ -1,0 +1,191 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: #ffffff;
+    transition: all 0.3s ease;
+}
+.navbar-scrolled {
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+    padding: 10px 0px;
+}
+.navbar .logo {
+    width: 150px;
+}
+.navbar-menu {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+    color: #555;
+    font-size: 17px;
+}
+.navbar-menu a {
+    position: relative;
+    padding-bottom: 4px;
+    transition: color 0.3s ease;
+}
+.navbar-menu a:hover {
+    color: #DA4F7D;
+}
+.navbar-menu .active {
+    color: #DA4F7D;
+    border-bottom: 2px solid #DA4F7D;
+}
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+.navbar button {
+    background: transparent;
+    font-size: 15px;
+    color: #49557e;
+    border: 2px solid #DA4F7D;
+    padding: 8px 28px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+.navbar button:hover {
+    background-color: #DA4F7D;
+    color: white;
+}
+.navbar-search-icon {
+    position: relative;
+}
+.navbar-search-icon img {
+    width: 24px;
+    cursor: pointer;
+}
+.navbar-search-icon .dot {
+    position: absolute;
+    min-height: 18px;
+    min-width: 18px;
+    background-color: #DA4F7D;
+    border-radius: 50%;
+    top: -10px;
+    right: -10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: popIn 0.3s ease;
+}
+.navbar-search-icon .dot span {
+    color: white;
+    font-size: 10px;
+    font-weight: 600;
+}
+@keyframes popIn {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+.navbar-profile {
+    position: relative;
+    cursor: pointer;
+}
+.navbar-profile > img {
+    width: 32px;
+    border-radius: 50%;
+}
+.nav-profile-dropdown {
+    position: absolute;
+    display: none;
+    right: 0;
+    top: 100%;
+    z-index: 10;
+    min-width: 160px;
+}
+.navbar-profile:hover .nav-profile-dropdown {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background-color: white;
+    padding: 14px 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    animation: fadeIn 0.2s ease;
+}
+.nav-profile-dropdown li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 6px 4px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    font-size: 14px;
+}
+.nav-profile-dropdown li:hover {
+    color: #DA4F7D;
+    background-color: #fdf2f5;
+}
+.nav-profile-dropdown img {
+    width: 18px;
+}
+.nav-profile-dropdown hr {
+    border: none;
+    border-top: 1px solid #f0f0f0;
+    margin: 2px 0;
+}
+
+/* Hamburger menu */
+.navbar-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 5px;
+}
+.navbar-hamburger span {
+    width: 22px;
+    height: 2px;
+    background-color: #333;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+@media (max-width: 1050px) {
+    .navbar .logo { width: 130px; }
+    .navbar-menu { font-size: 16px; gap: 18px; }
+    .navbar-right { gap: 20px; }
+    .navbar button { padding: 7px 22px; font-size: 14px; }
+}
+
+@media (max-width: 750px) {
+    .navbar-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        flex-direction: column;
+        padding: 20px;
+        gap: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        border-radius: 0 0 12px 12px;
+    }
+    .navbar-menu-open {
+        display: flex !important;
+        animation: fadeIn 0.3s ease;
+    }
+    .navbar-hamburger {
+        display: flex;
+    }
+    .navbar button {
+        padding: 6px 18px;
+        font-size: 13px;
+    }
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(-5px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
